@@ -1,0 +1,627 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #eef1f6 !important;
+  font-family: 'Quicksand', sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.navbar {
+  background-color: #eef1f6;
+  font-weight: 600;
+}
+
+.nav-link {
+  color: #364667;
+  font-weight: bold;
+  padding-left: 3rem !important;
+}
+
+.keterangan {
+  text-align: justify;
+}
+
+/* login */
+
+.login-container {
+  background-color: #eef1f6;
+  display: flex;
+  height: 100vh;
+}
+
+.login-form-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.login-form {
+  max-width: 400px;
+  width: 100%;
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 7rem;
+  width: 7rem;
+  background: url('../images/v110_178.png') center/cover;
+  border-radius: 50%;
+  margin-bottom: 30px;
+}
+
+.login-title {
+  font-size: 3.6rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #364667;
+  padding: 12px 30px;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 7rem;
+}
+
+.login-button:hover {
+  background-color: #5e79b3;
+}
+
+.login-background {
+  flex: 1;
+  background: url('../images/v110_204.png') center/cover;
+}
+
+@media (max-width: 767px) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-form-container {
+    padding: 20px;
+  }
+
+  .login-title {
+    font-size: 2.6rem;
+  }
+
+  .login-button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+  .login-background {
+    display: none;
+  }
+}
+
+.bg-biru {
+  background-color: #364667 !important;
+  color: white !important;
+}
+
+.bg-abu {
+  background-color: #d9d9d9;
+  color: black !important;
+}
+
+.form-cs {
+  padding: 1.1rem !important;
+}
+
+/* beranda mahasiswa */
+.cardmaha-title {
+  color: #212529;
+  padding: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.under {
+  background-image: linear-gradient(to right, #000, #000);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  background-size: 100% 2px;
+}
+
+.img-thumbnail {
+  width: 200px;
+  height: 250px;
+}
+
+.profile-container {
+  background-color: #364667;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-top: 2rem;
+}
+
+.profile-image {
+  padding: 20px;
+  margin-right: 20px;
+}
+
+.profile-table {
+  flex-basis: 50%;
+  padding: 20px;
+}
+
+.profile-table .profile-row {
+  border: 1px solid #000;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.profile-table .profile-label {
+  padding-left: 1.2rem;
+  font-weight: bold;
+  width: 100px;
+}
+
+.batas {
+  font-weight: bold;
+}
+
+.profile-table .profile-value {
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.card.mb-4.card-sm {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card.mb-4.card-sm .card-img-top {
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+  /* Mengatur lebar gambar menjadi 100% */
+}
+
+.card.mb-4.card-sm .card-body {
+  padding: 20px;
+}
+
+.card.mb-4.card-sm .card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.card.mb-4.card-sm .card-text {
+  margin-bottom: 5px;
+}
+
+.card.mb-4.card-sm .card-text .status-icon {
+  margin-right: 10px;
+}
+
+.card.mb-4.card-sm .card-text .i-red {
+  color: red;
+}
+
+.card.mb-4.card-sm .card-text.keterangan {
+  margin-top: 10px;
+}
+
+.report-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.report-button .btn-white {
+  width: 50%;
+  font-weight: bold;
+  background-color: white;
+  cursor: pointer;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.report-button .btn-white:hover {
+  width: 60%;
+  font-weight: bold;
+  background-color: #d9d9d9;
+}
+
+/* beranda admin */
+.cardadmin-title {
+  color: white;
+  padding: 1.5rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.unders {
+  background-image: linear-gradient(to right, #fff, #fff);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 2px;
+  background-size: 100% 2px;
+}
+
+.admin {
+  background-color: #364667;
+}
+
+/* detail */
+.content-container {
+  padding: 20px;
+}
+
+.detail-title {
+  background-color: #364667;
+  color: #fff;
+  padding: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.status-icon {
+  margin-right: 1.2rem;
+}
+
+.i-red {
+  color: red;
+}
+
+@media (max-width: 767px) {
+  .card {
+    width: 100% !important;
+  }
+
+  .card-img-top {
+    height: 400px;
+  }
+}
+
+/* form report */
+.content-container {
+  padding: 20px;
+}
+
+.report-title {
+  background-color: #364667;
+  color: #fff;
+  padding: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.bg-biru {
+  background-color: #364667 !important;
+  padding: 0.7rem;
+  font-weight: bold;
+}
+
+.form-biru {
+  background-color: #eef1f6;
+}
+
+/* your report */
+.content-container {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.your-title {
+  background-color: #364667;
+  color: #fff;
+  padding: 1.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.card-img-top {
+  object-fit: cover;
+  max-width: 100%;
+  height: 330px;
+  /* Adjust the height as needed */
+}
+
+.status-icon {
+  margin-right: 1.2rem;
+}
+
+.i-red {
+  color: red;
+}
+
+@media (max-width: 1204px) {
+  .card {
+    width: 100% !important;
+  }
+
+  .card-img-top {
+    height: 400px;
+  }
+}
+
+/* Landing Page */
+
+.bg {
+  background-color: #364667;
+}
+
+.header {
+  padding: 20px;
+  margin-top: 45px;
+  margin-bottom: 40px;
+}
+
+.header img {
+  width: 400px;
+}
+
+
+
+.image img {
+  width: 350px;
+}
+
+/* Info Kampus */
+.background-color {
+  background-color: #364667 !important;
+  padding: 20px;
+}
+
+.home {
+  background-color: #eef1f6;
+  height: 650px;
+}
+
+#home {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.konten {
+  width: 100%;
+  margin: 0 auto;
+  padding: 5px 25px;
+  display: flex;
+  align-items: center;
+}
+
+.konten .deskripsi-konten {
+  flex: 1;
+}
+
+.konten .deskripsi-konten p {
+  column-count: 1;
+  margin-bottom: 10px;
+}
+
+.konten .deskripsi-konten .title {
+  font-size: 50px;
+  margin: 10px 0;
+}
+
+.btn-custom {
+  padding: 0.8rem 2.5rem;
+  margin-top: 10px;
+  font-weight: bold;
+  font-size: 15px;
+  color: white !important;
+  border: 2px solid transparent;
+  background-color: #364667 !important;
+  cursor: pointer;
+}
+
+.btn-custom:hover {
+  border: solid #364667 !important;
+  background-color: #fff !important;
+  color: #000000 !important;
+}
+
+.color-putih {
+  color: #364667 !important;
+}
+
+/* News Baru */
+.badge {
+  height: 80px;
+  width: 80px;
+  font-family: 'Montserrat', Sans-serif;
+  font-size: 8px;
+  font-weight: 900;
+  background-color: #da9a29 !important;
+  border-radius: 100px;
+  position: absolute;
+  top: 83%;
+  left: 30px;
+  top: 220px;
+}
+
+.card-body {
+  margin-top: 40px;
+}
+
+h5 {
+  font-weight: 700;
+}
+
+.badge h5 {
+  font-size: 15px;
+  margin-top: 20px !important;
+}
+
+.card-title:hover {
+  color: #da9a29 !important;
+  cursor: pointer !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .badge {
+    top: 180px !important;
+  }
+}
+
+/* News */
+
+.news {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 27fpx;
+  color: #000000;
+  margin-bottom: 25px;
+}
+
+.news .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card-news {
+  width: 300px;
+  background-color: #364667;
+  border-radius: 10px;
+  margin: 0.5rem;
+}
+
+.card-news img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-description {
+  padding: 20px;
+}
+
+.subtitle {
+  padding: 10vh 0;
+}
+
+
+/* About Us */
+
+.bg_aboutus {
+  background-color: #eef1f6;
+  padding: 0 0 20vh 0;
+}
+
+.wrapper {
+  text-align: center;
+}
+
+.wrapper h1 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 27fpx;
+  color: #000000;
+  margin-bottom: 25px;
+}
+
+.our_team {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.our_team .team_member {
+  width: 250px;
+  margin: 5px;
+  background: #eef1f6;
+  padding: 20px 10px;
+}
+
+.our_team .team_member .member_img {
+  background: #eef1f6;
+  max-width: 190px;
+  width: 100%;
+  height: 190px;
+  margin: 0 auto;
+  border-radius: 50%;
+  padding: 5px;
+  position: relative;
+  cursor: pointer;
+}
+
+.our_team .team_member .member_img img {
+  width: 100%;
+  height: 100%;
+}
+
+.our_team .team_member h3 {
+  text-transform: uppercase;
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 2px;
+  margin: 15px 0 0px;
+}
+
+.our_team .team_member span {
+  font-size: 10px;
+}
+
+.our_team .team_member p {
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.our_team .team_member .member_img .social_media {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  background: rgba(0, 0, 0, 0.65);
+  width: 95%;
+  height: 95%;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: scale(0);
+  transition: all 0.5s ease;
+}
+
+.our_team .team_member .member_img .social_media .fab {
+  color: #fff !important;
+  font-size: 20px;
+  margin: 0 10px;
+}
+
+.our_team .team_member .member_img:hover .social_media {
+  transform: scale(1);
+}
+
+/* Footer */
+
+.footer {
+  font-family: 'Quicksand', Sans-serif;
+  background-color: #2d3e52;
+  width: 100% !important;
+  padding: 1.5rem;
+  font-weight: bold;
+  color: #eef1f6;
+  text-align: center;
+  margin-top: auto;
+}
