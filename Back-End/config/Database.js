@@ -1,9 +1,15 @@
-import {Sequelize} from "sequelize";
+import { Sequelize } from "sequelize";
+import dotenv from "dotenv";
 
-const db = new Sequelize('laporan_db','root','',{
-    host: 'localhost',
-    port: 3306,
-    dialect: "mysql"
+dotenv.config();
+
+const db = new Sequelize({
+  database: process.env.DATABASES,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  dialect: "mysql",
 });
 
 export default db;
