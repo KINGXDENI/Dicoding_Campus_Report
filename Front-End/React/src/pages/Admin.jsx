@@ -20,15 +20,26 @@ function Admin() {
         }
     }, [navigate]);
     useEffect(() => {
-        axios
-            .get('https://api.campusreports.site/api/report')
-            .then((response) => {
-                setReports(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        const fetchData = () => {
+            axios
+                .get('https://api.campusreports.site/api/report')
+                .then((response) => {
+                    setReports(response.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        };
+
+        fetchData();
+
+        const intervalId = setInterval(fetchData, 1000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
     }, []);
+
     const handleDelete = (reportId) => {
         Swal.fire({
             title: 'Delete Report',
