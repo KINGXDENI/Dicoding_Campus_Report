@@ -1,245 +1,171 @@
-.bg {
-    background-color: #364667;
+@media (max-width: 1204px) {
+    .card {
+        width: 100% !important;
+    }
+
+    .card-img-top {
+        height: 400px;
+    }
 }
 
-.header {
-    padding: 20px;
-    margin-top: 45px;
-    margin-bottom: 40px;
+@media (max-width: 523px) {
+    .profile-container {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .profile-image {
+        margin: auto;
+        margin-bottom: 1rem;
+    }
+
+    .profile-table {
+        padding-bottom: 5px !important;
+    }
 }
 
-.header img {
-    width: 400px;
+
+@media (max-width: 768px) {
+    .konten {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .konten .deskripsi-konten {
+
+        margin-bottom: 20px;
+    }
+
+    .konten .image {
+        margin-top: 20px;
+    }
+
+    .konten .deskripsi-konten .title {
+        font-size: 3rem !important;
+    }
+
+    .konten .deskripsi-konten p {
+        font-size: 1rem !important;
+    }
+
+    .btn-custom {
+        font-size: 1rem !important;
+        padding: 0.6rem 1.7rem !important;
+    }
 }
 
+@media (max-width: 767px) {
+    .login-container {
+        flex-direction: column;
+    }
 
+    .login-form-container {
+        padding: 20px;
+    }
 
-.image img {
-    width: 350px;
-}
+    .login-title {
+        font-size: 2.6rem;
+    }
 
-/* Info Kampus */
-.background-color {
-    background-color: #364667 !important;
-    padding: 20px;
-}
+    .login-button {
+        padding: 10px 20px;
+        font-size: 16px;
+    }
 
-.home {
-    background-color: #eef1f6;
-    height: 650px;
-}
+    .login-background {
+        display: none;
+    }
 
-#home {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
+    .card {
+        width: 100% !important;
+    }
 
-.konten {
-    width: 100%;
-    margin: 0 auto;
-    padding: 5px 25px;
-    display: flex;
-    align-items: center;
-}
+    .card-img-top {
+        height: 400px;
+    }
 
-.konten .deskripsi-konten {
-    flex: 1;
-}
-
-.konten .deskripsi-konten p {
-    column-count: 1;
-    margin-bottom: 10px;
-}
-
-.konten .deskripsi-konten .title {
-    font-size: 50px;
-    margin: 10px 0;
-}
-
-.btn-custom {
-    padding: 0.8rem 2.5rem;
-    margin-top: 10px;
-    font-weight: bold;
-    font-size: 15px;
-    color: white !important;
-    border: 2px solid transparent;
-    background-color: #364667 !important;
-    cursor: pointer;
-}
-
-.btn-custom:hover {
-    border: solid #364667 !important;
-    background-color: #fff !important;
-    color: #000000 !important;
-}
-
-.color-putih {
-    color: #364667 !important;
-}
-
-/* News Baru */
-.badge {
-    height: 80px;
-    width: 80px;
-    font-family: 'Montserrat', Sans-serif;
-    font-size: 8px;
-    font-weight: 900;
-    background-color: #da9a29 !important;
-    border-radius: 100px;
-    position: absolute;
-    top: 83%;
-    left: 30px;
-    top: 220px;
-}
-
-.card-body {
-    margin-top: 40px;
-}
-
-h5 {
-    font-weight: 700;
-}
-
-.badge h5 {
-    font-size: 15px;
-    margin-top: 20px !important;
-}
-
-.card-title:hover {
-    color: #da9a29 !important;
-    cursor: pointer !important;
+    .image-detail {
+        width: 50rem !important;
+        height: 40rem !important;
+    }
 }
 
 @media only screen and (max-width: 600px) {
+    .news .container {
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .card-news {
+        width: 90%;
+        margin: 0.5rem 0;
+    }
+
     .badge {
         top: 180px !important;
     }
 }
 
-/* News */
+@media (max-width: 585px) {
+    .image img {
+        display: none;
+    }
 
-.news {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 27fpx;
-    color: #000000;
-    margin-bottom: 25px;
+    .home {
+        height: 520px !important;
+    }
+
+    .konten {
+        width: 100%;
+        margin: 0 auto;
+        padding: 5px 25px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .konten .deskripsi-konten .title {
+        font-size: 3.5rem !important;
+    }
+
+    .konten .deskripsi-konten p {
+        font-size: 1rem !important;
+    }
+
+    .btn-custom {
+        font-size: 1rem !important;
+        padding: 0.6rem 1.7rem !important;
+    }
 }
 
-.news .container {
-    display: flex;
-    justify-content: space-between;
-}
+@media (min-width: 48em) {
+    .headers {
+        padding: 0 1rem;
+    }
 
-.card-news {
-    width: 300px;
-    background-color: #364667;
-    border-radius: 10px;
-    margin: 0.5rem;
-}
+    .header__content__nav {
+        color: #000;
+        transform: none;
+        flex-direction: row;
+        background: transparent;
+        width: auto;
+        height: 100%;
+        position: static;
+    }
 
-.card-news img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px 10px 0 0;
-}
+    .header__content__nav ul {
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 0;
+        margin-right: calc(0.5rem + 16px);
+    }
 
-.card-description {
-    padding: 20px;
-}
+    .header__content__nav ul li:not(:last-child) {
+        margin-bottom: 0;
+        margin-right: 16px;
+    }
 
-.subtitle {
-    padding: 10vh 0;
-}
-
-
-/* About Us */
-
-.bg_aboutus {
-    background-color: #eef1f6;
-    padding: 0 0 20vh 0;
-}
-
-.wrapper {
-    text-align: center;
-}
-
-.wrapper h1 {
-    font-family: 'Quicksand', sans-serif;
-    font-size: 27fpx;
-    color: #000000;
-    margin-bottom: 25px;
-}
-
-.our_team {
-    width: auto;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.our_team .team_member {
-    width: 250px;
-    margin: 5px;
-    background: #eef1f6;
-    padding: 20px 10px;
-}
-
-.our_team .team_member .member_img {
-    background: #eef1f6;
-    max-width: 190px;
-    width: 100%;
-    height: 190px;
-    margin: 0 auto;
-    border-radius: 50%;
-    padding: 5px;
-    position: relative;
-    cursor: pointer;
-}
-
-.our_team .team_member .member_img img {
-    width: 100%;
-    height: 100%;
-}
-
-.our_team .team_member h3 {
-    text-transform: uppercase;
-    font-size: 18px;
-    line-height: 18px;
-    letter-spacing: 2px;
-    margin: 15px 0 0px;
-}
-
-.our_team .team_member span {
-    font-size: 10px;
-}
-
-.our_team .team_member p {
-    margin-top: 20px;
-    font-size: 14px;
-    line-height: 20px;
-}
-
-.our_team .team_member .member_img .social_media {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    background: rgba(0, 0, 0, 0.65);
-    width: 95%;
-    height: 95%;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: scale(0);
-    transition: all 0.5s ease;
-}
-
-.our_team .team_member .member_img .social_media .fab {
-    color: #fff !important;
-    font-size: 20px;
-    margin: 0 10px;
-}
-
-.our_team .team_member .member_img:hover .social_media {
-    transform: scale(1);
+    .header__content__toggle {
+        display: none;
+    }
 }

@@ -74,7 +74,7 @@ function Dashboard() {
                 </div>
             </div>
             <div className='cardmaha-title animate__animated animate__fadeIn' id='exploreReport'>
-                <span className='under'>Explore Report</span>
+                <span className='under quicksand'>Explore Report</span>
             </div>
             <form className='d-flex col-sm-8 col-md-5 col-lg-4 mx-auto' role='search'>
                 <input
@@ -93,7 +93,7 @@ function Dashboard() {
                 <div className='row justify-content-center'>
                     {searchResults.length === 0 && !searchQuery ? (
                         reports.filter((report) => report.status === 'Diproses').length === 0 ? (
-                            <div className='kosong txt-biru animate__animated animate__bounceIn'>Report is empty</div>
+                            <div className='kosong txt-biru animate__animated animate__bounceIn quicksand'>Report is empty</div>
                         ) : (
                             reports
                                 .filter((report) => report.status === 'Diproses')
@@ -125,7 +125,7 @@ function Dashboard() {
                                 ))
                         )
                     ) : searchResults.length === 0 ? (
-                        <div className='kosong txt-biru animate__animated animate__bounceIn'>Report not found</div>
+                        <div className='kosong txt-biru animate__animated animate__bounceIn quicksand'>Report not found</div>
                     ) : (
                         searchResults.map((report) => (
                             <div className='col-md-4 animate__animated animate__bounceIn' key={report._id}>
@@ -214,7 +214,7 @@ function FormReport() {
         <>
             <div>
                 <Navbar />
-                <div className='report-title'>Form Report</div>
+                <div className='report-title quicksand'>Form Report</div>
                 <div className='content-container animate__animated animate__fadeIn'>
                     <div className='card mx-auto animate__animated animate__backInUp' style={{ width: '80%' }}>
                         <div className='card-body'>
@@ -371,7 +371,7 @@ function FormEditReport() {
         <>
             <div>
                 <Navbar />
-                <div className='report-title'>Form Edit</div>
+                <div className='report-title quicksand'>Form Edit</div>
                 <div className='content-container animate__animated animate__fadeIn'>
                     <div className='card mx-auto animate__animated animate__backInUp' style={{ width: '80%' }}>
                         <div className='card-body'>
@@ -531,11 +531,11 @@ function YourReport() {
         <>
             <div>
                 <Navbar />
-                <div className='your-title animate__animated animate__fadeIn'>Your Report</div>
+                <div className='your-title animate__animated animate__fadeIn quicksand'>Your Report</div>
                 <div className='content-container container-custom'>
                     <div className='row'>
                         {filteredReports.length === 0 ? (
-                            <div className='kosong txt-biru animate__animated animate__bounceIn'>Report is empty</div>
+                            <div className='kosong txt-biru animate__animated animate__bounceIn quicksand'>Report is empty</div>
                         ) : (
                             filteredReports.map((report) => (
                                 <div className='col-md-6 animate__animated animate__bounceInDown' key={report._id}>
@@ -656,7 +656,7 @@ function DetailReport() {
         <>
             <div>
                 <Navbar />
-                <div className='detail-title'>Detail Report</div>
+                <div className='detail-title quicksand'>Detail Report</div>
                 <div className='detail-container animate__animated animate__fadeIn'>
                     <div className='row'>
                         <div className='col-md-4'>

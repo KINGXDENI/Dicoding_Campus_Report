@@ -28,11 +28,11 @@ const UserProfile = () => {
         <div className='card-body'>
             {user ? (
                 <>
-                    <h2 className='card-title fw-bold'>{user.nama}</h2>
+                    <h2 className='card-title text-uppercase fw-bold'>{user.nama}</h2>
                     <div className='profile-row'>
                         <div className='profile-label'>NIM</div>
                         <div className='batas'>:</div>
-                        <div className='profile-value'>{user.nim}</div>
+                        <div className='profile-value text-uppercase'>{user.nim}</div>
                     </div>
                     <div className='profile-row'>
                         <div className='profile-label'>Jurusan</div>
