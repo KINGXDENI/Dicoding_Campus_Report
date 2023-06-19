@@ -677,6 +677,36 @@ body {
     }
 }
 
+@media (max-width: 585px) {
+    .image img {
+        display: none;
+    }
+    .home{
+        height: 520px !important;
+    }
+
+    .konten {
+        width: 100%;
+        margin: 0 auto;
+        padding: 5px 25px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .konten .deskripsi-konten .title {
+        font-size: 3.5rem !important;
+    }
+
+    .konten .deskripsi-konten p {
+        font-size: 1rem !important;
+    }
+
+    .btn-custom {
+        font-size: 1rem !important;
+        padding: 0.6rem 1.7rem !important;
+    }
+}
 
 
 /* Info Kampus */

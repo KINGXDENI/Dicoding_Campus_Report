@@ -62,12 +62,9 @@ function Login() {
             });
 
             const data = await response.json();
-            console.log(data);
 
             if (response.ok) {
                 const { role, message, id } = data;
-                console.log(message);
-
                 localStorage.setItem('isLoggedIn', true);
                 localStorage.setItem('role', role);
                 localStorage.setItem('userId', id); // Set the user ID into localStorage
