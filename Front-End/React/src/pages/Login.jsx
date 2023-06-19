@@ -19,7 +19,7 @@ function Login() {
             };
         } else {
             loginData = {
-                nim: email,
+                nim: email.toLowerCase(),
                 password: password,
             };
         }

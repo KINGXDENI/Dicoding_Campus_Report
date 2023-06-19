@@ -107,11 +107,11 @@ function Admin() {
                 <Navbars />
                 <div className='content-container admin animate__animated animate__fadeIn'>
                     <div className='cardadmin-title' id='listReport'>
-                        <span className='unders'>List Report</span>
+                        <span className='unders quicksand'>List Report</span>
                     </div>
                     <div className='row'>
                         {reports.filter((report) => report.status === 'Diproses').length === 0 ? (
-                            <div className='kosong'>Report is empty</div>
+                            <div className='kosong quicksand'>Report is empty</div>
                         ) : (
                             reports
                                 .filter((report) => report.status === 'Diproses')
