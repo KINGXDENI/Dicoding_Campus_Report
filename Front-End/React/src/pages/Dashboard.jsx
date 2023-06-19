@@ -27,7 +27,7 @@ function Dashboard() {
     useEffect(() => {
         if (searchQuery) {
             axios
-                .get(`http://localhost:5000/api/search?keyword=${searchQuery}`)
+                .get(`https://api.campusreports.site/api/search?keyword=${searchQuery}`)
                 .then((response) => {
                     setSearchResults(response.data);
                 })
