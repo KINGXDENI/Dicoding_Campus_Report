@@ -1,15 +1,27 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import Footers from '../components/footer';
+import { Navbars } from '../components/navbar';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 function Admin() {
+    const navigate = useNavigate();
     const [reports, setReports] = useState([]);
+    useEffect(() => {
+        // Check if the user is logged in as an admin
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        const role = localStorage.getItem('role');
 
+        if (!isLoggedIn || role !== 'admin') {
+            navigate('/login');
+        }
+    }, [navigate]);
     useEffect(() => {
         axios
-            .get('http://localhost:5000/reports')
+            .get('https://api.campusreports.site/api/report')
             .then((response) => {
                 setReports(response.data);
             })
@@ -17,33 +29,6 @@ function Admin() {
                 console.log(error);
             });
     }, []);
-    const navigate = useNavigate();
-    const handleLogout = () => {
-        Swal.fire({
-            title: 'Logout',
-            text: 'Are you sure you want to logout?',
-            icon: 'question',
-            showCancelButton: true,
-            confirmButtonText: 'Logout',
-            cancelButtonText: 'Cancel',
-            reverseButtons: true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                localStorage.removeItem('isLoggedIn');
-                localStorage.removeItem('role');
-                navigate('/login');
-                Swal.fire({
-                    title: 'Success',
-                    text: 'LogOut',
-                    icon: 'success',
-                    showConfirmButton: false,
-                    timer: 1000,
-                    background: '#364667',
-                    color: '#ffffff',
-                });
-            }
-        });
-    };
     const handleDelete = (reportId) => {
         Swal.fire({
             title: 'Delete Report',
@@ -56,10 +41,10 @@ function Admin() {
         }).then((result) => {
             if (result.isConfirmed) {
                 axios
-                    .delete(`http://localhost:5000/reports/${reportId}`)
+                    .delete(`https://api.campusreports.site/api/report/${reportId}`)
                     .then(() => {
                         const updatedReports = reports.map((report) => {
-                            if (report.id === reportId) {
+                            if (report._id === reportId) {
                                 return { ...report, isFadingOut: true };
                             }
                             return report;
@@ -68,7 +53,7 @@ function Admin() {
 
                         // Remove the card from the list after 2 seconds
                         setTimeout(() => {
-                            const updatedReportsWithoutCard = updatedReports.filter((report) => report.id !== reportId);
+                            const updatedReportsWithoutCard = updatedReports.filter((report) => report._id !== reportId);
                             setReports(updatedReportsWithoutCard);
                         }, 1000);
                     })
@@ -92,7 +77,7 @@ function Admin() {
             if (result.isConfirmed) {
                 setTimeout(() => {
                     const updatedReports = reports.map((report) => {
-                        if (report.id === reportId) {
+                        if (report._id === reportId) {
                             return { ...report, isFadingOut: true };
                         }
                         return report;
@@ -102,9 +87,9 @@ function Admin() {
                     // Remove the card from the list after 1 second
                     setTimeout(() => {
                         axios
-                            .patch(`http://localhost:5000/reports/${reportId}`, { status: 'Selesai' })
+                            .patch(`https://api.campusreports.site/api/report/${reportId}`, { status: 'Selesai' })
                             .then(() => {
-                                const updatedReportsWithoutCard = updatedReports.filter((report) => report.id !== reportId);
+                                const updatedReportsWithoutCard = updatedReports.filter((report) => report._id !== reportId);
                                 setReports(updatedReportsWithoutCard);
                             })
                             .catch((error) => {
@@ -116,38 +101,10 @@ function Admin() {
         });
     };
 
-
-
     return (
         <>
             <div>
-                <nav className='navbar navbar-expand-lg'>
-                    <div className='container'>
-                        <a className='navbar-brand' href='/'>
-                            <img src='../images/logo.jpg' width={60} height={60} alt='Logo' />
-                        </a>
-                        <button
-                            className='navbar-toggler'
-                            type='button'
-                            data-bs-toggle='collapse'
-                            data-bs-target='#navbarNav'
-                            aria-controls='navbarNav'
-                            aria-expanded='false'
-                            aria-label='Toggle navigation'
-                        >
-                            <span className='navbar-toggler-icon' />
-                        </button>
-                        <div className='collapse navbar-collapse justify-content-end' id='navbarNav'>
-                            <ul className='navbar-nav'>
-                                <li className='nav-item ps-4'>
-                                    <button className='btn btn-dark btn-logout bg-biru' onClick={handleLogout}>
-                                        Logout
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
+                <Navbars />
                 <div className='content-container admin animate__animated animate__fadeIn'>
                     <div className='cardadmin-title' id='listReport'>
                         <span className='unders'>List Report</span>
@@ -159,13 +116,13 @@ function Admin() {
                             reports
                                 .filter((report) => report.status === 'Diproses')
                                 .map((report) => (
-                                    <div className='col-md-6 animate__animated animate__bounceInDown' key={report.id}>
+                                    <div className='col-md-6 animate__animated animate__bounceInDown' key={report._id}>
                                         <div className={`card mb-4 ${report.isFadingOut ? 'animate__animated animate__backOutUp' : ''}`}>
                                             <div className='row g-0'>
                                                 <div className='col-md-4'>
                                                     <img
-                                                        src={`http://localhost:5000/images/${report.gambar}`}
-                                                        className='img-fluid rounded-start card-img-top'
+                                                        src={`https://api.campusreports.site/images/${report.gambar}`}
+                                                        className='img-fluid rounded-start card-img-top yreport'
                                                         alt='Foto'
                                                     />
                                                 </div>
@@ -174,27 +131,28 @@ function Admin() {
                                                         <h2 className='card-title fw-bold'>{report.perihal}</h2>
                                                         <p className='card-text'>
                                                             {report.status === 'Selesai' ? (
-                                                                <i className='fas fa-check-circle status-icon fa-2x text-success' />
+                                                                <i className='fas fa-check-circle status-icon fa-xl text-success' />
                                                             ) : (
-                                                                <i className='fas fa-history status-icon fa-2x' />
+                                                                <i className='fas fa-history status-icon fa-xl' />
                                                             )}
                                                             <span className='fw-bold'>{report.status}</span>
                                                         </p>
 
                                                         <p className='card-text'>
-                                                            <i className='fas fa-map-marker-alt status-icon i-red fa-2x' />
+                                                            <i className='fas fa-map-marker-alt status-icon i-red fa-xl' />
                                                             <span className='fw-bold'>{report.lokasi}</span>
                                                         </p>
                                                         <p className='card-text keterangan'>
+                                                            <i className='fas fa-bookmark status-icon fa-xl' />
                                                             <span className='fw-bold'>{report.deskripsi}</span>
                                                         </p>
                                                     </div>
-                                                    <div className='card-footer d-flex justify-content-end'>
-                                                        <button className='btn btn-success me-2' onClick={() => handleComplete(report.id)}>
-                                                            Selesai
+                                                    <div className='card-footer d-flex bg-white my-auto justify-content-end'>
+                                                        <button className='btn btn-success me-2' onClick={() => handleComplete(report._id)}>
+                                                            <FontAwesomeIcon icon={faCheck} className='anim-icon' />
                                                         </button>
-                                                        <button className='btn btn-danger' onClick={() => handleDelete(report.id)}>
-                                                            Delete
+                                                        <button className='btn btn-danger' onClick={() => handleDelete(report._id)}>
+                                                            <FontAwesomeIcon icon={faTrash} className='anim-icon' />
                                                         </button>
                                                     </div>
                                                 </div>

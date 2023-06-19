@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import Cekrole from '../components/cekRole';
 import Footers from '../components/footer';
 import { useEffect, useRef, useState } from 'react';
 
@@ -12,7 +11,18 @@ function Home() {
     const [isAboutUsVisible, setIsAboutUsVisible] = useState(false);
     const [isInfoKampusVisible, setIsInfoKampusVisible] = useState(false);
 
-    Cekrole();
+    useEffect(() => {
+        // Check if the user is already logged in and redirect accordingly
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        const role = localStorage.getItem('role');
+        if (isLoggedIn && role) {
+            if (role === 'admin') {
+                navigate('/dashboard-admin');
+            } else {
+                navigate('/dashboard');
+            }
+        }
+    }, [navigate]);
 
     useEffect(() => {
         const options = {
@@ -92,7 +102,7 @@ function Home() {
                         <div className='collapse navbar-collapse' id='navbarNav'>
                             <ul className='navbar-nav ms-auto'>
                                 <li className='nav-item'>
-                                    <a className='nav-link active' aria-current='page' href='#home'>
+                                    <a className='nav-link active' aria-current='page' href='#'>
                                         Home
                                     </a>
                                 </li>

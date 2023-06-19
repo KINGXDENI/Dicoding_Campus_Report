@@ -1,10 +1,14 @@
-import { useState } from 'react';
-import Cekrole from '../components/cekRole';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Login() {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleLogin = async () => {
         let loginData;
@@ -49,7 +53,7 @@ function Login() {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/login', {
+            const response = await fetch('https://campus-api-production.up.railway.app/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +82,7 @@ function Login() {
                         background: '#364667',
                         color: '#ffffff',
                     }).then(() => {
-                        window.location.href = '/dashboard-admin';
+                        navigate('/dashboard-admin');
                     });
                 } else {
                     Swal.fire({
@@ -90,7 +94,7 @@ function Login() {
                         background: '#364667',
                         color: '#ffffff',
                     }).then(() => {
-                        window.location.href = '/dashboard';
+                        navigate('/dashboard');
                     });
                 }
             } else {
@@ -130,7 +134,21 @@ function Login() {
         }
     };
 
-    Cekrole();
+    const togglePasswordVisibility = () => {
+        setShowPassword((prevState) => !prevState);
+    };
+
+    useEffect(() => {
+        // Check if the user is logged in as an admin
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        const role = localStorage.getItem('role');
+
+        if (isLoggedIn || role === 'user') {
+            navigate('/dashboard');
+        } else if (isLoggedIn || role === 'admin') {
+            navigate('/dashboard-admin');
+        }
+    }, [navigate]);
 
     return (
         <>
@@ -150,14 +168,19 @@ function Login() {
                             />
                         </div>
                         <div className='mb-3'>
-                            <input
-                                type='password'
-                                className='form-control form-control-lg form-cs bg-abu animate__animated animate__fadeInLeft animate__slow'
-                                id='password'
-                                placeholder='Password'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
+                            <div className='password-input-wrapper animate__animated animate__fadeInLeft animate__slow'>
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    className='form-control form-control-lg form-cs bg-abu'
+                                    id='password'
+                                    placeholder='Password'
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                />
+                                <div className='password-toggle-icon' onClick={togglePasswordVisibility}>
+                                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                                </div>
+                            </div>
                         </div>
                         <div className='d-grid'>
                             <button
@@ -172,6 +195,7 @@ function Login() {
                 </div>
                 <div className='login-background' />
             </div>
+            
         </>
     );
 }

@@ -8,7 +8,7 @@ const UserProfile = () => {
             const userId = localStorage.getItem('userId');
 
             try {
-                const response = await fetch(`http://localhost:5000/${userId}`);
+                const response = await fetch(`https://campus-api-production.up.railway.app/api/users/${userId}`);
                 const data = await response.json();
 
                 if (response.ok) {
