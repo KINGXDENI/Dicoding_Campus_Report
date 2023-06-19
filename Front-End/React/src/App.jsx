@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import { Dashboard, DetailReport, FormEditReport, FormReport, YourReport } from './pages/Dashboard';
 import Admin from './pages/Admin';
-import useClearReport from './components/clearReport';
+import useClearReport from './utils/clearReport';
 
 function App() {
     useClearReport();

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Navbar } from '../components/navbar';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -110,7 +111,7 @@ function Dashboard() {
                                                 </p>
                                                 <p className='card-text keterangan'>
                                                     <i className='fas fa-bookmark status-icon fa-xl' />
-                                                    <span className='fw-bold'>{report.deskripsi.slice(0, 100)}...</span>
+                                                    <span className='fw-bold'>{report.deskripsi.slice(0, 44)}...</span>
                                                 </p>
                                             </div>
                                             <div className='card-footer bg-biru d-flex'>
@@ -140,7 +141,7 @@ function Dashboard() {
                                         </p>
                                         <p className='card-text keterangan'>
                                             <i className='fas fa-bookmark status-icon fa-xl' />
-                                            <span className='fw-bold'>{report.deskripsi.slice(0, 100)}...</span>
+                                            <span className='fw-bold d-inline-block text-truncate'>{report.deskripsi.slice(0, 44)}...</span>
                                         </p>
                                     </div>
                                 </div>
@@ -186,7 +187,7 @@ function FormReport() {
         axios
             .post('https://api.campusreports.site/api/report', formData)
             .then((response) => {
-                console.log(response.data);
+                
                 Swal.fire({
                     showConfirmButton: false,
                     icon: 'success',
@@ -343,7 +344,7 @@ function FormEditReport() {
         axios
             .patch(`https://api.campusreports.site/api/report/${id}`, formData)
             .then((response) => {
-                console.log(response.data);
+                
                 Swal.fire({
                     showConfirmButton: false,
                     icon: 'success',
@@ -390,7 +391,7 @@ function FormEditReport() {
                                 </div>
                                 <div className='mb-3'>
                                     <label htmlFor='lokasi' className='form-label'>
-                                        <span className='label-text'>Lokasi:</span>
+                                        <span className='label-text fw-bold fs-5'>Lokasi:</span>
                                     </label>
                                     <input
                                         type='text'
@@ -403,7 +404,7 @@ function FormEditReport() {
                                 </div>
                                 <div className='mb-3'>
                                     <label htmlFor='file' className='form-label'>
-                                        <span className='label-text'>File:</span>
+                                        <span className='label-text fw-bold fs-5'>File:</span>
                                     </label>
                                     <div className='custom-file'>
                                         <input
@@ -564,7 +565,7 @@ function YourReport() {
                                                     </p>
                                                     <p className='card-text keterangan'>
                                                         <i className='fas fa-bookmark status-icon fa-xl' />
-                                                        <span className='fw-bold'>{report.deskripsi.slice(0, 100)}...</span>
+                                                        <span className='fw-bold'>{report.deskripsi.slice(0, 44)}...</span>
                                                     </p>
                                                 </div>
                                                 <div className='card-footer d-flex bg-biru justify-content-end'>
@@ -626,7 +627,7 @@ function DetailReport() {
             axios
                 .delete(`https://api.campusreports.site/api/report/${id}/like`)
                 .then((response) => {
-                    console.log(response);
+                    
                     setLiked(false);
                     setLikeCount(likeCount - 1);
                 })
@@ -637,7 +638,7 @@ function DetailReport() {
             axios
                 .post(`https://api.campusreports.site/api/report/${id}/like`)
                 .then((response) => {
-                    console.log(response);
+                    
                     setLiked(true);
                     setLikeCount(likeCount + 1);
                 })
