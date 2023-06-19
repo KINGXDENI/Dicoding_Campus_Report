@@ -1,34 +1,29 @@
-//ReportModel.JS
-import {
-  Sequelize
-} from 'sequelize';
-import db from '../config/Database.js';
+const mongoose = require('mongoose');
 
 const {
-  DataTypes
-} = Sequelize;
+    Schema
+} = mongoose;
 
-const Report = db.define(
-  'report', {
-    perihal: DataTypes.STRING,
-    lokasi: DataTypes.STRING,
-    gambar: DataTypes.STRING,
-    deskripsi: DataTypes.STRING,
-    URL: DataTypes.STRING,
+const reportSchema = new Schema({
+    perihal: String,
+    lokasi: String,
+    gambar: String,
+    deskripsi: String,
+    URL: String,
     likes: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0,
+        type: Number,
+        default: 0,
     },
     status: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      defaultValue: 'diproses',
+        type: String,
+        required: true,
+        default: 'diproses',
     },
-    nim: DataTypes.STRING,
-  }, {
-    freezeTableName: true,
-  }
-);
+    nim: String,
+}, {
+    timestamps: true,
+});
 
-export default Report;
+const Report = mongoose.model('Report', reportSchema);
+
+module.exports = Report;

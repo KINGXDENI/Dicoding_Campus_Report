@@ -1,216 +1,243 @@
-import Report from '../models/ReportModel.js';
-import path from 'path';
-import fs from 'fs';
+const path = require('path');
+const fs = require('fs');
+const Report = require('../models/ReportModel');
+const multer = require('multer');
 
-export const getReports = async (req, res) => {
-  try {
-    const response = await Report.findAll();
-    res.json(response);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({
-      msg: 'Internal Server Error'
-    });
-  }
-};
+const crypto = require('crypto');
 
-export const getReportById = async (req, res) => {
-  try {
-    const response = await Report.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-
-    if (!response) {
-      return res.status(404).json({
-        msg: 'No Data Found'
-      });
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/images');
+    },
+    filename: function (req, file, cb) {
+        const ext = path.extname(file.originalname);
+        const gambarName = crypto.randomBytes(16).toString('hex') + ext;
+        cb(null, gambarName);
     }
+});
 
-    res.json(response);
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({
-      msg: 'Internal Server Error'
-    });
-  }
-};
-
-export const saveReport = (req, res) => {
-  if (!req.files || !req.files.file) {
-    return res.status(400).json({
-      msg: 'No File Uploaded'
-    });
-  }
-
-  const title = req.body.title;
-  const file = req.files.file;
-  const lokasi = req.body.lokasi;
-  const nim = req.body.nim;
-  const deskripsi = req.body.deskripsi;
-  const fileSize = file.data.length;
-  const ext = path.extname(file.name);
-  const fileName = file.md5 + ext;
-  const url = `${req.protocol}://${req.get('host')}/images/${fileName}`;
-  const allowedTypes = ['.png', '.jpg', '.jpeg'];
-
-  if (!allowedTypes.includes(ext.toLowerCase())) {
-    return res.status(422).json({
-      msg: 'Invalid Image Type'
-    });
-  }
-
-  if (fileSize > 5000000) {
-    return res.status(422).json({
-      msg: 'Image must be less than 5 MB'
-    });
-  }
-
-  file.mv(`./public/images/${fileName}`, async (err) => {
-    if (err) {
-      console.log(err);
-      return res.status(500).json({
-        msg: 'Failed to upload file'
-      });
-    }
-
-    try {
-      await Report.create({
-        perihal: title,
-        lokasi: lokasi,
-        gambar: fileName,
-        deskripsi: deskripsi,
-        URL: url,
-        status: 'Diproses',
-        nim: nim,
-      });
-
-      res.status(201).json({
-        msg: 'Report Created Successfully'
-      });
-    } catch (error) {
-      console.log(error);
-      res.status(500).json({
-        msg: 'Internal Server Error'
-      });
-    }
-  });
-};
-
-export const updateReport = async (req, res) => {
-  try {
-    const report = await Report.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-
-    if (!report) {
-      return res.status(404).json({
-        msg: 'No Data Found'
-      });
-    }
-
-    const {
-      lokasi,
-      deskripsi,
-      title,
-      status
-    } = req.body;
-
-    let fileName = report.gambar;
-
-    if (req.files && req.files.file) {
-      const file = req.files.file;
-      const fileSize = file.data.length;
-      const ext = path.extname(file.name);
-      fileName = file.md5 + ext;
-      const allowedTypes = ['.png', '.jpg', '.jpeg'];
-
-      if (!allowedTypes.includes(ext.toLowerCase())) {
-        return res.status(422).json({
-          msg: 'Invalid Image Type'
-        });
-      }
-      if (fileSize > 5000000) {
-        return res.status(422).json({
-          msg: 'Image must be less than 5 MB'
-        });
-      }
-
-      const filepath = `./public/images/${report.gambar}`;
-      fs.unlinkSync(filepath);
-
-      file.mv(`./public/images/${fileName}`, (err) => {
-        if (err) {
-          return res.status(500).json({
-            msg: err.message
-          });
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 5000000
+    },
+    fileFilter: function (req, file, cb) {
+        const allowedTypes = ['.png', '.jpg', '.jpeg'];
+        const ext = path.extname(file.originalname);
+        if (!allowedTypes.includes(ext.toLowerCase())) {
+            return cb(new Error('Invalid Image Type'));
         }
-      });
+        cb(null, true);
     }
+});
 
-    const url = `${req.protocol}://${req.get('host')}/images/${fileName}`;
+const saveReport = (req, res) => {
+    upload.single('gambar')(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+            // A Multer error occurred during file upload
+            return res.status(422).json({
+                msg: err.message
+            });
+        } else if (err) {
+            // An unknown error occurred during file upload
+            return res.status(500).json({
+                msg: err.message
+            });
+        }
 
-    await Report.update({
-      perihal: title,
-      lokasi: lokasi,
-      gambar: fileName,
-      deskripsi: deskripsi,
-      URL: url,
-      status: status,
-    }, {
-      where: {
-        id: req.params.id,
-      },
-    });
+        if (!req.file) {
+            return res.status(400).json({
+                msg: 'No gambar Uploaded'
+            });
+        }
 
-    res.status(200).json({
-      msg: 'Report Updated Successfully'
+        const perihal = req.body.perihal;
+        const gambarName = req.file.filename;
+        const lokasi = req.body.lokasi;
+        const nim = req.body.nim;
+        const deskripsi = req.body.deskripsi;
+        const url = `${req.protocol}://${req.get('host')}/images/${gambarName}`;
+
+        try {
+            const newReport = new Report({
+                perihal: perihal,
+                lokasi: lokasi,
+                gambar: gambarName,
+                deskripsi: deskripsi,
+                URL: url,
+                status: 'Diproses',
+                nim: nim,
+            });
+            await newReport.save();
+
+            res.status(201).json({
+                msg: 'Report Created Successfully'
+            });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({
+                msg: 'Internal Server Error'
+            });
+        }
     });
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({
-      msg: 'Internal Server Error'
-    });
-  }
 };
 
 
-export const deleteReport = async (req, res) => {
-  try {
-    const report = await Report.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
-
-    if (!report) {
-      return res.status(404).json({
-        msg: 'No Data Found'
-      });
+const getReports = async (req, res) => {
+    try {
+        const response = await Report.find();
+        res.json(response);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            msg: 'Internal Server Error'
+        });
     }
+};
 
-    const filepath = `./public/images/${report.gambar}`;
+const getReportById = async (req, res) => {
+    try {
+        const report = await Report.findOne({
+            _id: req.params.id,
+        });
 
-    if (fs.existsSync(filepath)) {
-      fs.unlinkSync(filepath);
+        if (!report) {
+            return res.status(404).json({
+                msg: 'No Data Found'
+            });
+        }
+
+        res.json(report);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            msg: 'Internal Server Error'
+        });
     }
+};
 
-    await Report.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
 
-    res.status(200).json({
-      msg: 'Report Deleted Successfully'
+
+const updateReport = async (req, res) => {
+    upload.single('gambar')(req, res, async function (err) {
+        if (err instanceof multer.MulterError) {
+            // A Multer error occurred during file upload
+            return res.status(422).json({
+                msg: err.message
+            });
+        } else if (err) {
+            // An unknown error occurred during file upload
+            return res.status(500).json({
+                msg: err.message
+            });
+        }
+
+        const report = await Report.findOne({
+            _id: req.params.id
+        });
+
+        if (!report) {
+            return res.status(404).json({
+                msg: 'No Data Found',
+            });
+        }
+
+        const {
+            lokasi,
+            deskripsi,
+            perihal,
+            status
+        } = req.body;
+
+        let gambarName = report.gambar;
+
+        if (req.file) {
+            const ext = path.extname(req.file.originalname);
+            gambarName = crypto.randomBytes(16).toString('hex') + ext;
+            const allowedTypes = ['.png', '.jpg', '.jpeg'];
+
+            if (!allowedTypes.includes(ext.toLowerCase())) {
+                return res.status(422).json({
+                    msg: 'Invalid Image Type',
+                });
+            }
+
+            const oldImagePath = path.join(__dirname, '../public/images', report.gambar);
+            const newImagePath = path.join(__dirname, '../public/images', gambarName);
+
+            // Rename the uploaded file
+            fs.renameSync(req.file.path, newImagePath);
+
+            // Delete the old image file
+            fs.unlinkSync(oldImagePath);
+        }
+
+        const url = `${req.protocol}://${req.get('host')}/images/${gambarName}`;
+
+        try {
+            await Report.updateOne({
+                _id: req.params.id
+            }, {
+                perihal: perihal,
+                lokasi: lokasi,
+                gambar: gambarName,
+                deskripsi: deskripsi,
+                URL: url,
+                status: status,
+            });
+
+            res.status(200).json({
+                msg: 'Report Updated Successfully',
+            });
+        } catch (error) {
+            console.log(error.message);
+            res.status(500).json({
+                msg: 'Internal Server Error',
+            });
+        }
     });
-  } catch (error) {
-    console.log(error.message);
-    res.status(500).json({
-      msg: 'Internal Server Error'
-    });
-  }
+};
+
+
+const deleteReport = async (req, res) => {
+    try {
+        const report = await Report.findOne({
+            _id: req.params.id,
+        });
+
+        if (!report) {
+            return res.status(404).json({
+                msg: 'No Data Found'
+            });
+        }
+
+        const filepath = `./public/images/${report.gambar}`;
+
+        if (fs.existsSync(filepath)) {
+            fs.unlinkSync(filepath);
+        }
+
+        await Report.deleteOne({
+            _id: req.params.id,
+        });
+
+        res.status(200).json({
+            msg: 'Report Deleted Successfully'
+        });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({
+            msg: 'Internal Server Error'
+        });
+    }
+};
+
+
+
+module.exports = {
+    getReports,
+    getReportById,
+    saveReport,
+    updateReport,
+    deleteReport,
 };
