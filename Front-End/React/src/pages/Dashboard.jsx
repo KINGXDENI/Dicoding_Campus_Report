@@ -76,7 +76,7 @@ function Dashboard() {
             <div className='cardmaha-title animate__animated animate__fadeIn' id='exploreReport'>
                 <span className='under quicksand'>Explore Report</span>
             </div>
-            <form className='d-flex col-sm-8 col-md-5 col-lg-4 mx-auto' role='search'>
+            <form className='d-flex col-sm-8 col-md-5 col-lg-4 mx-auto search' role='search'>
                 <input
                     className='form-control me-2'
                     type='search'
