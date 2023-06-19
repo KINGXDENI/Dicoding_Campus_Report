@@ -154,6 +154,12 @@ function Dashboard() {
                                             <span className='fw-bold d-inline-block text-truncate'>{report.deskripsi.slice(0, 44)}...</span>
                                         </p>
                                     </div>
+                                    <div className='card-footer bg-biru d-flex'>
+                                        <p className='my-auto'>
+                                            <i className='fas fa-heart me-2'></i>
+                                            {report.likes} Like
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         ))
