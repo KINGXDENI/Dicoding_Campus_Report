@@ -1,17 +1,12 @@
-import { DataTypes } from 'sequelize';
-import db from '../config/Database.js';
+const mongoose = require('mongoose');
 
-const Like = db.define(
-  'Like',
-  {
-    reportId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
+const likeSchema = new mongoose.Schema({
+  report: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Report',
   },
-  {
-    freezeTableName: true,
-  }
-);
+});
 
-export default Like;
+const Like = mongoose.model('Like', likeSchema);
+
+module.exports = Like;

@@ -1,6 +1,6 @@
-import SearchModel from '../models/SearchModel.js';
+const SearchModel = require('../models/searchModel');
 
-export const search = async (req, res) => {
+const search = async (req, res) => {
   try {
     const keyword = req.query.keyword;
 
@@ -12,3 +12,5 @@ export const search = async (req, res) => {
     res.status(500).json({ error: 'Terjadi kesalahan saat melakukan pencarian' });
   }
 };
+
+module.exports = { search };

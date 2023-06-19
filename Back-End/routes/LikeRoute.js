@@ -1,10 +1,10 @@
-import express from 'express';
-import { addLike, getLikesByReportId } from '../controllers/LikeController.js';
-
+const express = require('express');
+const { addLike, getLikesByReportId, removeLike } = require('../controllers/likeController.js');
 const router = express.Router();
 
 // Definisikan rute untuk menambahkan like
-router.post('/reports/:id/like', addLike);
-router.get('/reports/:id/like', getLikesByReportId);
+router.post('/report/:id/like', addLike);
+router.get('/report/:id/like', getLikesByReportId);
+router.delete('/report/:id/like', removeLike);
 
-export default router;
+module.exports = router;

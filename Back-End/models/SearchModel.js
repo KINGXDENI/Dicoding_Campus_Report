@@ -1,25 +1,23 @@
-import { Op } from 'sequelize';
-import Report from './ReportModel.js';
+const mongoose = require('mongoose');
+const Report = require('./ReportModel');
 
 const SearchModel = {
   searchReports: async (keyword) => {
     try {
-      const results = await Report.findAll({
-        where: {
-          [Op.or]: [
-            { perihal: { [Op.like]: `%${keyword}%` } },
-            { lokasi: { [Op.like]: `%${keyword}%` } },
-            { deskripsi: { [Op.like]: `%${keyword}%` } },
-          ],
-        },
+      const results = await Report.find({
+        $or: [
+          { perihal: { $regex: keyword, $options: 'i' } },
+          { lokasi: { $regex: keyword, $options: 'i' } },
+          { deskripsi: { $regex: keyword, $options: 'i' } },
+        ],
       });
 
       return results;
     } catch (error) {
-      console.error('Terjadi kesalahan saat melakukan pencarian:', error);
+      console.error('Terjadi kesalahan saat melakukan pencarian:', error.message);
       throw error;
     }
   },
 };
 
-export default SearchModel;
+module.exports = SearchModel;
